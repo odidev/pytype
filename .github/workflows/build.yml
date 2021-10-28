@@ -20,11 +20,14 @@ jobs:
     strategy:
       matrix:
         platform:
-          - manylinux2014_x86_64
+          - manylinux2014_aarch64
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+      - uses: docker/setup-qemu-action@v1
+        with:
+          platforms: arm64
       - name: Pull Docker image
         run: |
           DOCKER_IMAGE="quay.io/pypa/${{ matrix.platform }}"
